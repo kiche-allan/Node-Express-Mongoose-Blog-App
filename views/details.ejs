@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+
+<body>
+    <body>
+        <%- include("./partials/nav.ejs") %>
+      
+        <div class="details content">
+          <h2><%= blog.title %></h2>
+          <div class="content">
+            <p><%= blog.body %></p>
+          </div>
+          <a class="delete" data-doc="<%= blog._id %>">
+            DELETE
+          </a>
+        </div>
+      
+        <%- include("./partials/footer.ejs") %>
+
+        <script>
+          const deleteimg = document.querySelector('a.delete');
+          deleteimg.addEventListener('click', function(e) {
+            e.preventDefault();
+            const id = e.target.getAttribute('data-doc');
+            const url = '/blogs/' + id;
+            fetch(url, {
+              method: 'DELETE'
+            }).then(function(response) {
+              window.location.href = '/blogs';
+            });
+          });
+
+          // deleteimg.addEventListener('click', function(e) {
+          //   e.preventDefault();
+          //   const endpoint = `/blogs/${deleteimg.dataset.doc}`
+          //   fetch(endpoint, {
+          //     method: 'DELETE'
+          //     //this is an async so we need to wait for it to finish
+          //   }).then((response) => response.json()) 
+          //   //redirect to the window object
+          //   .then((data) => window.location.href = data.redirect)
+            
+          //   .catch(err => console.log(err));
+          //   });
+
+        </script>
+</body>
+</html>
